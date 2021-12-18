@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Success</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"  rel="stylesheet"  integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    
+</head>
+<body>
+    <form method="POST">
+        {% csrf_token %}
+
+                                        <center><h1>Attendance</h1><br>
+        EMP NAME&emsp;&emsp;<select class="" id="name" name="name">
+            <option>Akash</option>
+            <option>Kalai</option>
+            <option>Surya</option>
+            <option>Hithesh</option>
+        </select><br><br>
+        
+        DATE&emsp;&emsp;<input type="date" id="d" name="date"><br><br>
+        <script>
+            var today = new Date(); 
+            var date = today.getFullYear()+'-'+(today. getMonth()+1)+'-'+today.getDate();
+            document. getElementById("d").value = date;
+        </script>
+        TIME FROM &emsp;<input type="time" class="" id="time1" name="time1" readonly><br><br>
+        <script>
+            var today = new Date();
+            var time = (today.getHours()-1) + ":" + today.getMinutes();
+            document.getElementById("time1").value = time;
+        </script>
+        TIME TILL &emsp;<input type="time" class="" id="time2" name="time2" readonly><br><br>
+        <script>
+            var today = new Date();
+            var time = today.getHours() + ":" + today.getMinutes();
+            document.getElementById("time2").value = time;
+        </script>
+        DES&emsp;&emsp;<input type="text" class="" id="time_from" name="des"><br><br>
+
+        &emsp;&emsp;&emsp;<input type="submit" class="btn-success" value="Complete"><br><br>
+    </center>
+    </form>
+    
+</body>
+</html>

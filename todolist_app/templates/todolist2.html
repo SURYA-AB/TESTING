@@ -1,0 +1,102 @@
+
+
+
+<script>
+    $(document).ready(function(){
+window.setTimeout(function() {
+  $(".alert").fadeTo(500, 0).slideUp(500, function(){
+      $(this).remove();
+  });
+}, 5000);
+
+</script>
+
+{% extends 'base.html' %}
+
+{% block title %}
+<title> Todo List Manager</title>
+{% endblock title %}
+
+{% block content %}
+<style> 
+      marquee {
+        width: 100%;
+        padding: 3px 0  ;
+        background-color: lightblue;
+      }
+    </style>
+    <marquee direction="scroll">**Ramajayam and Assoicates Chartered Acccountants ** Ramajayam and Assoicates Chartered Acccountants ** </marquee>
+
+<br/>
+            {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ message }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+            {% endfor %}
+            {% endif %}
+                       
+            
+<div class="card-group">
+<div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
+  <h5  class="card-header">Ramajayam</h5>
+  <div class="card-body">
+    <h5 class="card-title">Pending Task {{ countrampending }}</h5>
+    <h5 class="card-text"> Work in Progress {{ countramwip }}</h5>
+    <h5 class="card-text"> Overdue</h5>
+  </div>
+</div>
+</div>
+
+
+<div class="row justify-content-center">
+    <div class="col-auto">
+    <table class="table table-bordered table-hover table-sm table-responsive"  >
+
+
+    
+            <caption>List of Pending Works</caption>
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Task id |client Name</th>
+                    <th scope="col">Task</th>
+                    <th scope="col">Start Date</th>
+                    <th scope="col">End Date</th>
+                    <th scope="col">Asignee</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Final status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if all_tasks %}
+                    {% for obj in all_tasks %}
+                        {% if obj.fstatus %}
+                            
+                            
+                            
+                            
+                            
+                        {% else %}
+                            <tr>
+                                <td><a href="{% url 'edit_task' obj.id %}">{{ obj.id  }} | {{ obj.clientname  }}</a></td>
+                                <td>{{ obj.task  }} | <a href="{% url 'view_task' obj.id %}"> Logs</a> </td>
+                                <td>{{ obj.startdate  }}</td>
+                                <td>{{ obj.enddate  }}</td>
+                                <td>{{ obj.assignee  }}</td>
+                                <td>{{ obj.status  }}</td>
+                                <td>Pending</td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                {% endif%}
+            </tbody> 
+        </table>
+    
+    </div>
+  </div>
+
+{% endblock content %}
+

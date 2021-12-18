@@ -1,0 +1,171 @@
+<script>
+    $(document).ready(function(){
+window.setTimeout(function() {
+  $(".alert").fadeTo(500, 0).slideUp(500, function(){
+      $(this).remove();
+  });
+}, 5000);
+
+</script>
+
+{% extends 'base.html' %}
+
+{% block title %}
+<title> Todo List Manager</title>
+{% endblock title %}
+
+{% block content %}
+<style>
+      marquee {
+        width: 100%;
+        padding: 3px 0  ;
+        background-color: lightblue;
+      }
+    </style>
+    <marquee direction="scroll">**Ramajayam and Assoicates Chartered Acccountants ** Ramajayam and Assoicates Chartered Acccountants ** </marquee>
+
+<br/>
+            {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ message }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+            {% endfor %}
+            {% endif %}
+<br>
+            <form method="POST" class="row">
+                {% csrf_token %}
+                <label class="col-lg-1"></label>
+                <input type="text" class="form-control col-lg-2" name="clientname" placeholder="Client Name">&emsp;
+                <input type="text" class="form-control col-lg-2" name="task" placeholder="Task">&emsp;
+                <input type="date" class="form-control col-lg-1" name="startdate" value="{{placement.date|date:"Y-m-d" }}">&emsp;
+                <input type="date" class="form-control col-lg-1" name="enddate" value="{{placement.date|date:"Y-m-d" }}">
+
+                    <div class="form-group col-lg-2">
+                        <select class="form-control" id="assignee" name="assignee">
+                         <option selected>Ramajayam</option>
+                         <option>Arul Murugan</option>
+                         <option>Akash</option>
+                         <option>Pavithra</option>
+                         <option>Bharath</option>
+                         <option>Kalai</option>
+
+                        </select>
+                    </div>
+                    <div class="form-group col-lg-2">
+                        <select class="form-control" id="status" name="status">
+                        <option selected>Pending</option>
+                        <option>Work in Progress</option>
+                        </select>
+                    </div>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;
+
+                <button type="submit" class="btn btn-primary col-lg-5" name='action'>Add Task</button>
+            </form>
+<div class="row justify-content-center">
+    <div class="col-auto">
+    <table class="table table-bordered table-hover table-sm table-responsive"  >
+
+<div class="card-group">
+<div class="card text-white bg-primary mb-3" style="max-width: 18rem;" >
+  <h5 class="card-header">Arul Murugan </h5>
+  <div class="card-body" >
+    <h5 class="card-title">Pending Task {{ countarulpending }}</h5>
+    <h5 class="card-text">Work in Progress {{ countarulwip }}</h5>
+    <h5 class="card-text"> Overdue</h5>
+  </div>
+</div>
+<div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
+  <h5  class="card-header">Ramajayam</h5>
+  <div class="card-body">
+    <h5 class="card-title">Pending Task {{ countrampending }}</h5>
+    <h5 class="card-text">Work in Progress {{ countramwip }}</h5>
+    <h5 class="card-text"> Overdue {{ countramapp }}</h5>
+  </div>
+</div>
+<div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
+  <h5  class="card-header">Akash</h5>
+  <div class="card-body">
+    <h5 class="card-title">Pending Task {{ countakashpending }}</h5>
+    <h5 class="card-text">Work in Progress {{ countakashwip }}</h5>
+    <h5 class="card-text"> Overdue {{ countakashapp }}</h5>
+
+  </div>
+</div>
+
+
+  <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
+
+<h5  class="card-header">Pavithra</h5>
+
+<div class="card-body">
+
+  <h5 class="card-title">Pending Task {{ countrampending }}</h5>
+  <h5 class="card-text"> Work in Progress {{ countramwip }}</h5>
+  <h5 class="card-text"> Overdue</h5>
+
+
+</div>
+
+</div>
+
+<div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
+  <h5  class="card-header">Kalai</h5>
+  <div class="card-body">
+    <h5 class="card-title">Pending Task {{ countkalaipending }}</h5>
+    <h5 class="card-text"> Work in Progress {{ countkalaiwip }}</h5>
+    <h5 class="card-text"> Overdue</h5>
+
+  </div>
+</div>
+</div>
+
+
+  </div>
+
+</div>
+</div>
+
+            <caption>List of Pending Works</caption>
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Task id |client Name</th>
+                    <th scope="col">Task</th>
+                    <th scope="col">Start Date</th>
+                    <th scope="col">End Date</th>
+                    <th scope="col">Asignee</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Final status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if all_tasks %}
+                    {% for obj in all_tasks %}
+                        {% if obj.fstatus %}
+
+
+
+
+
+                        {% else %}
+                            <tr>
+                                <td><a href="{% url 'edit_task' obj.id %}">{{ obj.id  }} | {{ obj.clientname  }}</a></td>
+                                <td>{{ obj.task  }} | <a href="{% url 'view_task' obj.id %}"> Logs</a> </td>
+                                <td>{{ obj.startdate  }}</td>
+                                <td>{{ obj.enddate  }}</td>
+                                <td>{{ obj.assignee  }}</td>
+                                <td>{{ obj.status  }}</td>
+                                <td>Pending</td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                {% endif%}
+            </tbody>
+        </table>
+
+    </div>
+  </div>
+
+{% endblock content %}

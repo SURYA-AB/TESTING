@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form method="post">
+        <center><h1>EDIT TASK FORM</h1></center></br>
+        {% csrf_token %}
+        <strong><h3>Task updations Form</h3></strong></br>
+
+        
+        OLD ID :<input type="text"  name="old_id" placeholder="Task ID "value = "old_id.old_id }}"></br></br>
+        
+
+        UPDTAE_DATE :<input type="date" id="updatedate" name="updatedate" readonly></br></br>
+            <script>
+                var today = new Date(); 
+                var date = today.getFullYear()+'-'+(today. getMonth()+1)+'-'+today.getDate();
+                document. getElementById("updatedate"). value = date;
+            </script>
+
+        TIME_FROM<input type="time" id="time_from" name="time_from"></br></br>
+
+        TIME_TO<input type="time" id="time_to" name="time_to" readonly></br></br>
+            <script>
+                var today = new Date();
+                var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+                document.getElementById("time_to").value = time;
+            </script>
+
+        MESSAGELOGS<textarea id="description"  name="messagelogs"></textarea></br></br>
+        
+        <input type="submit" class="btn btn-success"></br>
+
+</form>
+{% endblock content %}

@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+<html>
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <style>
+            body{
+                background-color: blueviolet;
+            }
+        </style>
+    </head>
+<body>
+{% block content %}
+<form method="post">
+        <center><h1>MY UPDATED DATABASE</h1></center></br>
+       
+        <table class="table table-success table-striped">   
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">OLD_ID</th>
+                <th scope="col">UPDTAE_DATE</th>
+                <th scope="col">TIME_FROM</th>
+                <th scope="col">TIME_TO</th>
+                <th scope="col">MESSAGELOGS</th>
+            </tr></thead>
+    {% for x in test_list %}
+          
+           <tbody>
+            <tr>
+                <td scope="row">{{ x.id }}</td>
+                <td scope="row">{{ x.old_id.id }}</td>
+                <td scope="row">{{ x.updatedate }}</td>
+                <td scope="row">{{ x.time_from }}</td>
+                <td scope="row">{{ x.time_to }}</td>
+                <td scope="row">{{ x.messagelogs }}</td>
+                
+        </tr>
+        {% endfor %}
+    </tbody>
+        </table>
+    
+    </br>
+    
+</form>
+{% endblock content %}
+</body>
+</html>

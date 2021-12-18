@@ -1,0 +1,36 @@
+
+{% block content %}
+<form method="post">
+        <center><h1>MY UPDATED DATABASE</h1></center></br>
+<table class="table table-success table-striped">   
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">CLIENTNAME</th>
+            <th scope="col">TASK</th>
+            <th scope="col">STARTDATE</th>
+            <th scope="col">ENDDATE</th>
+            <th scope="col">ASSIGNEE</th>
+            <th scope="col">STATUS</th>
+            <th scope="col">FSTATUS</th>
+         
+        </tr></thead>
+
+        {% for x in test_list %}
+          
+        <tbody>
+<td scope="row">{{ x.old_id.id }}</td>
+<td scope="row">{{ x.old_id.clientname }}</td>
+<td scope="row">{{ x.old_id.task }}</td>
+<td scope="row">{{ x.old_id.satrtdate }}</td>
+<td scope="row">{{ x.old_id.enddate }}</td>
+<td scope="row">{{ x.old_id.assignee }}</td>
+<td scope="row">{{ x.old_id.status }}</td>
+<td scope="row">{{ x.old_id.fstatus }}</td>
+
+         {% endfor %}
+
+    </tbody>
+</table>
+        </form>
+        {% endblock content %}

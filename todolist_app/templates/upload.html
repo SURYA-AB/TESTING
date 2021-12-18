@@ -1,0 +1,24 @@
+
+{% extends 'base.html' %}
+
+{% block title %}
+<title> View Task Message </title>
+{% endblock title %}
+</br>
+
+{% block content %}
+</br>
+    <div class="container">
+    </br>
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}   
+                <h2>File Uploader</h2>
+                <input type="file" name="document">
+                <button type="submit">Upload</button>
+            </form>
+            {% if url %}
+            <p>Uploaded_file : <a href="{{ url }}">{{ url }}</a></p>
+            {% endif %}
+
+{% endblock content %}
+
